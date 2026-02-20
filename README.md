@@ -58,7 +58,7 @@ See [Documentation/Authentication.md](https://mathworks-ref-arch.github.io/matla
 % Example: List buckets and read a secret
 s3 = aws.s3.Client();
 resp = s3.listBuckets();
-disp({resp.buckets.name}');
+disp(string({resp.buckets.name}'));
 
 sm = aws.secretsmanager.Client();
 secret = sm.getSecretValue(secretId="prod/app/api");
