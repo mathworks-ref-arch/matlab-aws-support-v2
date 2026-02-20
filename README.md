@@ -37,7 +37,7 @@ The [documentation portal](https://mathworks-ref-arch.github.io/matlab-aws-suppo
    mvn clean package
    ```
 3. In MATLAB, run `startup.m` from `Software/MATLAB` to add the interface to your path.
-4. Follow the detailed [Installation guide](Documentation/Installation.md) for advanced scenarios (proxy settings, custom SDK bundles, etc.).
+4. Follow the detailed [Installation guide](https://mathworks-ref-arch.github.io/matlab-aws-support-v2/Overview.html#installation) for advanced scenarios (proxy settings, custom SDK bundles, etc.).
 
 ## Documentation
 
