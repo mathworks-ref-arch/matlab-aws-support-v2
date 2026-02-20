@@ -1,0 +1,24 @@
+{
+    "functionNames": [
+        "yourFunction1.m",
+        "yourFunction2.m",
+        "yourFunction3.m"
+    ],
+    "archiveName": "yourArchiveName",
+    "awsRegion": "your-aws-region",
+    "ecrRepositoryName": "your-ecr-repository-name",
+    "subnets": [
+        "subnet-xxxxxxxxxxxxxxxxx",
+        "subnet-yyyyyyyyyyyyyyyyy"
+    ],
+    "securityGroups": [
+        "sg-xxxxxxxxxxxxxxxxx",
+        "sg-yyyyyyyyyyyyyyyyy",
+        "sg-zzzzzzzzzzzzzzzzz"
+    ],
+    "loadBalancerContainerPort": 9910,
+    "targetGroupArn": "arn:aws:elasticloadbalancing:your-region:your-account-id:targetgroup/your-target-group-name/xxxxxxxxxxxxxxxxx",
+    "ecsAssignPublicIp": "ENABLED",
+    "ecsClusterName": "your-ecs-cluster-name",
+    "ecsServiceName": "your-ecs-service-name"
+}

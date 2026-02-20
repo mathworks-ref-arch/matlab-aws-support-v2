@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>☁️ 6.11 Systems Manager (SSM) &mdash; MATLAB Interface for Amazon Web Services  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/mathworks.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="☁️ 6.12 STS" href="STS.html" />
+    <link rel="prev" title="☁️ 6.10 SQS" href="SQS.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MATLAB Interface for Amazon Web Services
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">MATLAB AWS Interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">📖 1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">⚙️ 2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">🛠️ 3. Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Authentication.html">4. AWS Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ClientInitialize.html">🧑‍💻 5. MATLAB AWS Client</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="AvailableServices.html">☁  6. Available Services</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Athena.html">☁️ 6.1 Athena</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BedrockRuntime.html">☁️ 6.2 Bedrock Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DynamoDB.html">☁️ 6.3 DynamoDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ECS.html">☁️ 6.4 ECS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lambda.html">☁️ 6.5 Lambda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Polly.html">☁️ 6.6 Polly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RedshiftData.html">☁️ 6.7 Redshift Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="S3.html">☁️ 6.8 S3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SNS.html">☁️ 6.9 SNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SQS.html">☁️ 6.10 SQS</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">☁️ 6.11 Systems Manager (SSM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-of-available-methods">🔧 6.11.1 List of Available Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">🧩 6.11.2 Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#method-reference-summary">📘 6.11.3 Method Reference (Summary)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#putparameter">🔸 <code class="docutils literal notranslate"><span class="pre">putParameter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#getparameter">🔸 <code class="docutils literal notranslate"><span class="pre">getParameter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deleteparameter">🔸 <code class="docutils literal notranslate"><span class="pre">deleteParameter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#createdocument">🔸 <code class="docutils literal notranslate"><span class="pre">createDocument</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deletedocument">🔸 <code class="docutils literal notranslate"><span class="pre">deleteDocument</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="STS.html">☁️ 6.12 STS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SecretsManager.html">☁️ 6.13 Secrets Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CredentialProvider.html">🧩 7. Credential Provider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWSCLI.html">💻 8. AWS CLI from within MATLAB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWSSDKAPI.html">📚 9. MATLAB AWS - API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Deployment.html">⚙️ 10. MATLAB Compiler (SDK) Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Troubleshooting.html">🧩 11. Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">❓ 12. FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MATLAB Interface for Amazon Web Services</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="AvailableServices.html">☁  6. Available Services</a></li>
+      <li class="breadcrumb-item active">☁️ 6.11 Systems Manager (SSM)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/SSM.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="systems-manager-ssm">
+<h1>☁️ 6.11 Systems Manager (SSM)<a class="headerlink" href="#systems-manager-ssm" title="Permalink to this heading"></a></h1>
+<p>MATLAB client for AWS Systems Manager Parameter Store and Documents.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ssm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">aws</span><span class="p">.</span><span class="n">ssm</span><span class="p">.</span><span class="n">Client</span><span class="p">();</span>
+</pre></div>
+</div>
+<section id="list-of-available-methods">
+<h2>🔧 6.11.1 List of Available Methods<a class="headerlink" href="#list-of-available-methods" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="AWSSDKAPI.html#awsssmclientputparameter"><span class="std std-ref">putParameter</span></a></p></li>
+<li><p><a class="reference internal" href="AWSSDKAPI.html#awsssmclientgetparameter"><span class="std std-ref">getParameter</span></a></p></li>
+<li><p><a class="reference internal" href="AWSSDKAPI.html#awsssmclientdeleteparameter"><span class="std std-ref">deleteParameter</span></a></p></li>
+<li><p><a class="reference internal" href="AWSSDKAPI.html#awsssmclientcreatedocument"><span class="std std-ref">createDocument</span></a></p></li>
+<li><p><a class="reference internal" href="AWSSDKAPI.html#awsssmclientdeletedocument"><span class="std std-ref">deleteDocument</span></a></p></li>
+</ul>
+</section>
+<section id="examples">
+<h2>🧩 6.11.2 Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h2>
+<p>Put and get a parameter</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ssm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">aws</span><span class="p">.</span><span class="n">ssm</span><span class="p">.</span><span class="n">Client</span><span class="p">();</span>
+<span class="n">ssm</span><span class="p">.</span><span class="n">putParameter</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&quot;/matlab/demo&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">=</span><span class="s">&quot;42&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">type</span><span class="p">=</span><span class="s">&quot;String&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">overwrite</span><span class="p">=</span><span class="nb">true</span><span class="p">);</span>
+<span class="n">gr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ssm</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&quot;/matlab/demo&quot;</span><span class="p">);</span>
+<span class="nb">disp</span><span class="p">(</span><span class="n">gr</span><span class="p">.</span><span class="n">parameter</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="method-reference-summary">
+<h2>📘 6.11.3 Method Reference (Summary)<a class="headerlink" href="#method-reference-summary" title="Permalink to this heading"></a></h2>
+<section id="putparameter">
+<h3>🔸 <code class="docutils literal notranslate"><span class="pre">putParameter</span></code><a class="headerlink" href="#putparameter" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">pp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ssm</span><span class="p">.</span><span class="n">putParameter</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&quot;&lt;name&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">=</span><span class="s">&quot;&lt;value&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">type</span><span class="p">=</span><span class="s">&quot;String&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">overwrite</span><span class="p">=</span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Returns: <code class="docutils literal notranslate"><span class="pre">aws.ssm.model.PutParameterResponse</span></code></p></li>
+</ul>
+</section>
+<section id="getparameter">
+<h3>🔸 <code class="docutils literal notranslate"><span class="pre">getParameter</span></code><a class="headerlink" href="#getparameter" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">gp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ssm</span><span class="p">.</span><span class="n">getParameter</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&quot;&lt;name&gt;&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Returns: <code class="docutils literal notranslate"><span class="pre">aws.ssm.model.GetParameterResponse</span></code></p></li>
+</ul>
+</section>
+<section id="deleteparameter">
+<h3>🔸 <code class="docutils literal notranslate"><span class="pre">deleteParameter</span></code><a class="headerlink" href="#deleteparameter" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">dp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ssm</span><span class="p">.</span><span class="n">deleteParameter</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&quot;&lt;name&gt;&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Returns: <code class="docutils literal notranslate"><span class="pre">aws.ssm.model.DeleteParameterResponse</span></code></p></li>
+</ul>
+</section>
+<section id="createdocument">
+<h3>🔸 <code class="docutils literal notranslate"><span class="pre">createDocument</span></code><a class="headerlink" href="#createdocument" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ssm</span><span class="p">.</span><span class="n">createDocument</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&quot;&lt;name&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">=</span><span class="s">&quot;&lt;json&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">documentType</span><span class="p">=</span><span class="s">&quot;Command&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Returns: <code class="docutils literal notranslate"><span class="pre">aws.ssm.model.CreateDocumentResponse</span></code></p></li>
+</ul>
+</section>
+<section id="deletedocument">
+<h3>🔸 <code class="docutils literal notranslate"><span class="pre">deleteDocument</span></code><a class="headerlink" href="#deletedocument" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">dd</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ssm</span><span class="p">.</span><span class="n">deleteDocument</span><span class="p">(</span><span class="n">name</span><span class="p">=</span><span class="s">&quot;&lt;name&gt;&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Returns: <code class="docutils literal notranslate"><span class="pre">aws.ssm.model.DeleteDocumentResponse</span></code></p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>🔗 Data Models: PutParameterResponse, GetParameterResponse, DeleteParameterResponse, CreateDocumentResponse, DocumentDescription</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SQS.html" class="btn btn-neutral float-left" title="☁️ 6.10 SQS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="STS.html" class="btn btn-neutral float-right" title="☁️ 6.12 STS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, MathWorks, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

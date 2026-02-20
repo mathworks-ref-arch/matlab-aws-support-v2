@@ -1,0 +1,20 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "<container-name>",
+            "image": "<account-id>.dkr.ecr.<region>.amazonaws.com/<repository-name>:<tag>",
+            "cpu": <cpu-units>,
+            "memory": <memory-units>,
+            "essential": true
+        }
+    ],
+    "family": "<task-family-name>",
+    "taskRoleArn": "arn:aws:iam::<account-id>:role/<task-role-name>",
+    "executionRoleArn": "arn:aws:iam::<account-id>:role/<execution-role-name>",
+    "networkMode": "<network-mode>",
+    "requiresCompatibilities": [
+        "<compatibility>"
+    ],
+    "cpu": "<task-cpu-units>",
+    "memory": "<task-memory-units>"
+}

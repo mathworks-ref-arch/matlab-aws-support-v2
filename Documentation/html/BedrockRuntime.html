@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>☁️ 6.2 Bedrock Runtime &mdash; MATLAB Interface for Amazon Web Services  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/mathworks.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="☁️ 6.3 DynamoDB" href="DynamoDB.html" />
+    <link rel="prev" title="☁️ 6.1 Athena" href="Athena.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MATLAB Interface for Amazon Web Services
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">MATLAB AWS Interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">📖 1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">⚙️ 2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">🛠️ 3. Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Authentication.html">4. AWS Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ClientInitialize.html">🧑‍💻 5. MATLAB AWS Client</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="AvailableServices.html">☁  6. Available Services</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Athena.html">☁️ 6.1 Athena</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">☁️ 6.2 Bedrock Runtime</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-of-available-methods">🔧 6.2.1 List of Available Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">🧩 6.2.2 Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#invoke-a-model-text-generation">🔸 Invoke a Model (Text Generation)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#invoke-a-model-image-generation">🔸 Invoke a Model (Image Generation)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stateful-conversation-multi-turn-text">🔸 Stateful Conversation (Multi-Turn; Text)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#converse-with-image-vision-models-only">🔸 Converse with Image (Vision Models Only)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#method-reference-summary">📘 6.2.3 Method Reference (Summary)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#invokemodel">🔸 <code class="docutils literal notranslate"><span class="pre">invokeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#converse">🔸 <code class="docutils literal notranslate"><span class="pre">converse</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#notes-best-practices">💡 Notes &amp; Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="DynamoDB.html">☁️ 6.3 DynamoDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ECS.html">☁️ 6.4 ECS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Lambda.html">☁️ 6.5 Lambda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Polly.html">☁️ 6.6 Polly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RedshiftData.html">☁️ 6.7 Redshift Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="S3.html">☁️ 6.8 S3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SNS.html">☁️ 6.9 SNS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SQS.html">☁️ 6.10 SQS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SSM.html">☁️ 6.11 Systems Manager (SSM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="STS.html">☁️ 6.12 STS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SecretsManager.html">☁️ 6.13 Secrets Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CredentialProvider.html">🧩 7. Credential Provider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWSCLI.html">💻 8. AWS CLI from within MATLAB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWSSDKAPI.html">📚 9. MATLAB AWS - API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Deployment.html">⚙️ 10. MATLAB Compiler (SDK) Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Troubleshooting.html">🧩 11. Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">❓ 12. FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MATLAB Interface for Amazon Web Services</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="AvailableServices.html">☁  6. Available Services</a></li>
+      <li class="breadcrumb-item active">☁️ 6.2 Bedrock Runtime</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/BedrockRuntime.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bedrock-runtime">
+<h1>☁️ 6.2 Bedrock Runtime<a class="headerlink" href="#bedrock-runtime" title="Permalink to this heading"></a></h1>
+<p>A MATLAB client for the Amazon Bedrock Runtime service. It provides API operations for running inference against Bedrock foundation models.</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">bedrock</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">aws</span><span class="p">.</span><span class="n">bedrock</span><span class="p">.</span><span class="n">runtime</span><span class="p">.</span><span class="n">Client</span><span class="p">(</span><span class="s">&#39;region&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;us-east-1&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Bedrock Runtime is not available in some default regions (e.g., <code class="docutils literal notranslate"><span class="pre">us-west-1</span></code>). Use a supported region such as <code class="docutils literal notranslate"><span class="pre">us-east-1</span></code>.</p>
+</div>
+<section id="list-of-available-methods">
+<h2>🔧 6.2.1 List of Available Methods<a class="headerlink" href="#list-of-available-methods" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="AWSSDKAPI.html#awsbedrockruntimeclientconverse"><span class="std std-ref">converse</span></a></p></li>
+<li><p><a class="reference internal" href="AWSSDKAPI.html#awsbedrockruntimeclientinvokemodel"><span class="std std-ref">invokeModel</span></a></p></li>
+</ul>
+</section>
+<section id="examples">
+<h2>🧩 6.2.2 Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h2>
+<section id="invoke-a-model-text-generation">
+<h3>🔸 Invoke a Model (Text Generation)<a class="headerlink" href="#invoke-a-model-text-generation" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">textPrompt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;What is your name?&quot;</span><span class="p">;</span>
+
+<span class="n">response</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bedrock</span><span class="p">.</span><span class="n">invokeModel</span><span class="p">(</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">modelId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;amazon.titan-text-express-v1&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">body</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="n">textPrompt</span><span class="p">);</span>
+
+<span class="nb">disp</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">outputText</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="invoke-a-model-image-generation">
+<h3>🔸 Invoke a Model (Image Generation)<a class="headerlink" href="#invoke-a-model-image-generation" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">struct</span><span class="p">(</span><span class="nb">text</span><span class="p">=</span><span class="s">&quot;Neon skyline at dusk&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">seed</span><span class="p">=</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="n">style</span><span class="p">=</span><span class="s">&quot;photographic&quot;</span><span class="p">);</span>
+<span class="n">resp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bedrock</span><span class="p">.</span><span class="n">invokeModel</span><span class="p">(</span><span class="n">modelId</span><span class="p">=</span><span class="s">&quot;amazon.titan-image-generator-v1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">body</span><span class="p">=</span><span class="n">spec</span><span class="p">);</span>
+<span class="nb">disp</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">responseBody</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="stateful-conversation-multi-turn-text">
+<h3>🔸 Stateful Conversation (Multi-Turn; Text)<a class="headerlink" href="#stateful-conversation-multi-turn-text" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">firstPrompt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Tell me about yourself in 50 words?&quot;</span><span class="p">;</span>
+<span class="n">message1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">aws</span><span class="p">.</span><span class="n">bedrock</span><span class="p">.</span><span class="n">runtime</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">Message</span><span class="p">(</span><span class="nb">text</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">firstPrompt</span><span class="p">,</span><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;user&quot;</span><span class="p">);</span>
+
+<span class="n">fullConversationMessages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">aws</span><span class="p">.</span><span class="n">bedrock</span><span class="p">.</span><span class="n">runtime</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">empty</span><span class="p">;</span>
+<span class="n">fullConversationMessages</span><span class="p">(</span><span class="k">end</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">message1</span><span class="p">;</span>
+
+<span class="n">response1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bedrock</span><span class="p">.</span><span class="n">converse</span><span class="p">(</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">modelId</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;amazon.titan-text-lite-v1&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">messages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">fullConversationMessages</span><span class="p">);</span>
+
+<span class="n">fullConversationMessages</span><span class="p">(</span><span class="k">end</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">response1</span><span class="p">.</span><span class="n">message</span><span class="p">;</span><span class="w"> </span><span class="c">% keep context</span>
+
+<span class="n">secondPrompt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Can you elaborate to 600 words?&quot;</span><span class="p">;</span>
+<span class="n">message2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">aws</span><span class="p">.</span><span class="n">bedrock</span><span class="p">.</span><span class="n">runtime</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">Message</span><span class="p">(</span><span class="nb">text</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">secondPrompt</span><span class="p">);</span>
+<span class="n">fullConversationMessages</span><span class="p">(</span><span class="k">end</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">message2</span><span class="p">;</span>
+
+<span class="n">response2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bedrock</span><span class="p">.</span><span class="n">converse</span><span class="p">(</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">modelId</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;amazon.titan-text-lite-v1&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">messages</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="n">fullConversationMessages</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">maxTokens</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">600</span><span class="p">);</span>
+
+<span class="nb">disp</span><span class="p">(</span><span class="n">response2</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">text</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="converse-with-image-vision-models-only">
+<h3>🔸 Converse with Image (Vision Models Only)<a class="headerlink" href="#converse-with-image-vision-models-only" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">imgMsg</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">aws</span><span class="p">.</span><span class="n">bedrock</span><span class="p">.</span><span class="n">runtime</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">Message</span><span class="p">(</span><span class="n">imageData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imageArray</span><span class="p">);</span><span class="w"> </span><span class="c">% numeric image</span>
+
+<span class="n">resp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bedrock</span><span class="p">.</span><span class="n">converse</span><span class="p">(</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">modelId</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&lt;vision-capable-model-id&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">messages</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">imgMsg</span><span class="p">);</span>
+
+<span class="nb">disp</span><span class="p">(</span><span class="n">resp</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">text</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="method-reference-summary">
+<h2>📘 6.2.3 Method Reference (Summary)<a class="headerlink" href="#method-reference-summary" title="Permalink to this heading"></a></h2>
+<section id="invokemodel">
+<h3>🔸 <code class="docutils literal notranslate"><span class="pre">invokeModel</span></code><a class="headerlink" href="#invokemodel" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bedrock</span><span class="p">.</span><span class="n">invokeModel</span><span class="p">(</span><span class="n">modelId</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&lt;model-id&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&lt;</span><span class="nb">string</span><span class="o">&gt;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Returns: <code class="docutils literal notranslate"><span class="pre">aws.bedrock.runtime.model.InvokeModelResponse</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">outputText</span></code>, <code class="docutils literal notranslate"><span class="pre">completionReason</span></code>, <code class="docutils literal notranslate"><span class="pre">tokenCount</span></code> (optional)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="converse">
+<h3>🔸 <code class="docutils literal notranslate"><span class="pre">converse</span></code><a class="headerlink" href="#converse" title="Permalink to this heading"></a></h3>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">bedrock</span><span class="p">.</span><span class="n">converse</span><span class="p">(</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">modelId</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&lt;model-id&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">messages</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">Message</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Message</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="k">...</span>
+<span class="w">    </span><span class="n">maxTokens</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">int</span><span class="o">&gt;</span><span class="p">);</span><span class="w">  </span><span class="c">% optional</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Returns: <code class="docutils literal notranslate"><span class="pre">aws.bedrock.runtime.model.ConverseResponse</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">message</span></code> (assistant message), <code class="docutils literal notranslate"><span class="pre">stopReason</span></code>, <code class="docutils literal notranslate"><span class="pre">usage</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="notes-best-practices">
+<h2>💡 Notes &amp; Best Practices<a class="headerlink" href="#notes-best-practices" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Prefer name-value argument style for clarity and forward compatibility.</p></li>
+<li><p>Maintain the conversation array by appending both user and assistant turns to preserve context.</p></li>
+<li><p>Use a supported region like <code class="docutils literal notranslate"><span class="pre">us-east-1</span></code> for Bedrock Runtime availability.</p></li>
+<li><p>Roles supported here are <code class="docutils literal notranslate"><span class="pre">user</span></code> and <code class="docutils literal notranslate"><span class="pre">assistant</span></code>.</p></li>
+<li><p>Pass a scalar string for quick text prompts. Provide a struct/dictionary (or JSON string) when the model
+requires additional parameters (for example, image generation seed or style).</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>🔗 Data Models:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="AWSSDKAPI.html#aws-bedrock-runtime-model-converseresponse"><span class="std std-ref">ConverseResponse</span></a></p></li>
+<li><p><a class="reference internal" href="AWSSDKAPI.html#aws-bedrock-runtime-model-invokemodelresponse"><span class="std std-ref">InvokeModelResponse</span></a></p></li>
+<li><p><a class="reference internal" href="AWSSDKAPI.html#aws-bedrock-runtime-model-message"><span class="std std-ref">Message</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Athena.html" class="btn btn-neutral float-left" title="☁️ 6.1 Athena" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="DynamoDB.html" class="btn btn-neutral float-right" title="☁️ 6.3 DynamoDB" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, MathWorks, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+# Exclude all folders ending with DockerImage
+**/*DockerImage/
+
+# Exclude all folders ending with ServerArchive
+**/*ServerArchive/
+
+# Ignore all .exe files
+*.exe
+
+# Ignore all .zip files
+*.zip
+
+# Ignore the codegen folder and all its contents
+codegen/

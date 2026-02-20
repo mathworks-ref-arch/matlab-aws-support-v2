@@ -1,0 +1,12 @@
+**/*DockerImage/
+**/*ServiceArchive/
+**/*productionServerArchive/
+results.xml
+**/.buildtool/
+**/build-reports/
+**/public/
+**/AWSLambdaDocker/
+**/StandaloneApplication/
+**/results.xml
+**/libiomp5.so
+**/*.asv

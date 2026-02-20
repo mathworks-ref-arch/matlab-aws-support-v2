@@ -1,0 +1,6 @@
+*.json
+*.bak
+credentials.json
+unittests.json
+taskDefinitionConfig.json
+deployFargateConfig.json

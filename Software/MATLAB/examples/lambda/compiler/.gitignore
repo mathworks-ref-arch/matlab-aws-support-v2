@@ -1,0 +1,10 @@
+**/StandaloneApplication/
+**/.buildtool/
+
+# Ignore all .asv files
+*.asv
+
+# Ignore all .zip files
+*.zip
+
+**/ctf/

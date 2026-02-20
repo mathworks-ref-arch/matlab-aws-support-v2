@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚙️ 2. Installation &mdash; MATLAB Interface for Amazon Web Services  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/mathworks.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🛠️ 3. Configuration" href="Configuration.html" />
+    <link rel="prev" title="📖 1. Overview" href="Overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MATLAB Interface for Amazon Web Services
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">MATLAB AWS Interface</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">📖 1. Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">⚙️ 2. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">📦 2.1 Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clone-the-repository">🧲 2.2 Clone the Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-the-matlab-aws-sdk-jar">📦 2.3 Build the MATLAB AWS SDK JAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-to-matlab-path-and-initialize">🛠️ 2.4 Add to MATLAB Path and Initialize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-static-java-class-path">🧩 2.5 Optional: Static Java Class Path</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">🛠️ 3. Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Authentication.html">4. AWS Authentication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ClientInitialize.html">🧑‍💻 5. MATLAB AWS Client</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AvailableServices.html">☁  6. Available Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CredentialProvider.html">🧩 7. Credential Provider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWSCLI.html">💻 8. AWS CLI from within MATLAB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AWSSDKAPI.html">📚 9. MATLAB AWS - API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Deployment.html">⚙️ 10. MATLAB Compiler (SDK) Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Troubleshooting.html">🧩 11. Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FAQ.html">❓ 12. FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MATLAB Interface for Amazon Web Services</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">⚙️ 2. Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Installation.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>⚙️ 2. Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<section id="prerequisites">
+<h2>📦 2.1 Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>MATLAB R2023b or later</p></li>
+<li><p>Java Development Kit (JDK) 8 to &lt; 18</p></li>
+<li><p>Apache Maven 3.8.8 or later</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Starting in MATLAB R2025b, Bring Your Own Java (BYOJ) applies. Ensure a supported Java is installed and selected.</p>
+</div>
+</section>
+<section id="clone-the-repository">
+<h2>🧲 2.2 Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Permalink to this heading"></a></h2>
+<p>Clone the repository including submodules if any:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>&lt;repo-url&gt;
+<span class="nb">cd</span><span class="w"> </span>matlab-aws-support-v2
+</pre></div>
+</div>
+</section>
+<section id="build-the-matlab-aws-sdk-jar">
+<h2>📦 2.3 Build the MATLAB AWS SDK JAR<a class="headerlink" href="#build-the-matlab-aws-sdk-jar" title="Permalink to this heading"></a></h2>
+<p>Build the Java components and package the JAR:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>Software/Java
+mvn<span class="w"> </span>clean<span class="w"> </span>package
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Software</span><span class="o">/</span><span class="n">MATLAB</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jar</span><span class="o">/</span><span class="n">matlab</span><span class="o">-</span><span class="n">aws</span><span class="o">-</span><span class="n">support</span><span class="o">-</span><span class="n">v2</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;.</span><span class="n">jar</span>
+</pre></div>
+</div>
+</section>
+<section id="add-to-matlab-path-and-initialize">
+<h2>🛠️ 2.4 Add to MATLAB Path and Initialize<a class="headerlink" href="#add-to-matlab-path-and-initialize" title="Permalink to this heading"></a></h2>
+<p>Add the MATLAB interface folders to your path by running:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">run</span><span class="p">(</span><span class="s">&#39;Software/MATLAB/startup.m&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Verify:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">aws</span><span class="p">.</span><span class="n">s3</span><span class="p">.</span><span class="n">Client</span><span class="p">();</span>
+<span class="nb">disp</span><span class="p">(</span><span class="n">s3</span><span class="p">.</span><span class="n">listBuckets</span><span class="p">());</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The above verification assumes that valid AWS credentials are available via the https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html. This allows clients to be created without explicitly specifying a credential provider.</p>
+</div>
+</section>
+<section id="optional-static-java-class-path">
+<h2>🧩 2.5 Optional: Static Java Class Path<a class="headerlink" href="#optional-static-java-class-path" title="Permalink to this heading"></a></h2>
+<p>Most workflows work with the dynamic path set by <code class="docutils literal notranslate"><span class="pre">startup.m</span></code>. If your workflow requires the JAR on the static class path (e.g., certain Java integrations), edit <code class="docutils literal notranslate"><span class="pre">javaclasspath.txt</span></code>:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">edit</span><span class="p">(</span><span class="nb">fullfile</span><span class="p">(</span><span class="nb">prefdir</span><span class="p">,</span><span class="s">&#39;javaclasspath.txt&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Add the absolute path to the JAR, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">absolute</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">matlab</span><span class="o">-</span><span class="n">aws</span><span class="o">-</span><span class="n">support</span><span class="o">-</span><span class="n">v2</span><span class="o">/</span><span class="n">Software</span><span class="o">/</span><span class="n">MATLAB</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">jar</span><span class="o">/</span><span class="n">matlab</span><span class="o">-</span><span class="n">aws</span><span class="o">-</span><span class="n">support</span><span class="o">-</span><span class="n">v2</span><span class="o">-&lt;</span><span class="n">version</span><span class="o">&gt;.</span><span class="n">jar</span>
+</pre></div>
+</div>
+<p>Then restart MATLAB.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Prefer dynamic class path during development; use static only when required.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Overview.html" class="btn btn-neutral float-left" title="📖 1. Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Configuration.html" class="btn btn-neutral float-right" title="🛠️ 3. Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, MathWorks, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
