@@ -1,7 +1,4 @@
-[![coverage](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/badges/main/coverage.svg)](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/code-coverage/coverage.html)
-[![tests](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/testBadge.svg)](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/test-reports/test-results.html)
-[![pipeline status](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/badges/main/pipeline.svg)](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/commits/main)
-[![matlab-aws-support-v2 Version](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/badges/release.svg)](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/releases/permalink/latest)
+[![Latest release](Documentation/Images/release.svg)](https://github.com/mathworks-ref-arch/matlab-aws-support-v2/releases/latest)
 [![License](Documentation/Images/license-badge.svg)](https://github.com/mathworks-ref-arch/matlab-aws-support-v2/blob/main/LICENSE.MD)
 [![Docs](Documentation/Images/docs-badge.svg)](https://mathworks-ref-arch.github.io/matlab-aws-support-v2)
 
