@@ -1,26 +1,46 @@
+# .github/workflows/pages.yaml
 name: Generate Documentation and Publish to Pages
-on: 
+
+on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   pages:
-    name: Generate Documentation and Publish to Pages 
+    name: Generate Documentation and Publish to Pages
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
-      - uses: actions/setup-python@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
-      - name: Install Sphinx Python Dependencies
-        run: pip install -r requirements.txt
+          python-version: '3.11'  # or '3.9' if you must
+
+      # If your Documentation/requirements.txt already pins Sphinx >=5,
+      # this single install is enough. Otherwise force-upgrade Sphinx after.
+      - name: Install Sphinx Python dependencies
         working-directory: Documentation
-      - name: Build Documentation
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          # Ensure Sphinx is new enough for sphinxcontrib.applehelp
+          pip install "sphinx>=7.0"
+
+      - name: Build documentation (Sphinx)
+        working-directory: Documentation
         run: make html
-        working-directory: Documentation  
-      - name: Deploy Documentation to Pages
+
+      - name: Deploy Documentation to Pages (gh-pages branch)
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          # IMPORTANT: Sphinx default output folder is _build/html
           publish_dir: ./Documentation/_build/html
