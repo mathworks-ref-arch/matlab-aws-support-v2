@@ -9,24 +9,25 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write         # needed to commit the badge
+  pull-requests: write    # needed to open/update the PR
 
 jobs:
   make-badge:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out default branch
+      - name: Check out main (read-only; PR will target this)
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.repository.default_branch }}
+          ref: ${{ github.event.repository.default_branch }}  # typically 'main'
           fetch-depth: 0
 
       - name: Determine version and label
         id: meta
         shell: bash
         run: |
-          # Prefer the tag from a Release event
+          set -e
           if [ "${{ github.event_name }}" = "release" ]; then
             VERSION="${{ github.event.release.tag_name }}"
             if [ "${{ github.event.release.prerelease }}" = "true" ]; then
@@ -35,16 +36,15 @@ jobs:
               LABEL="release"
             fi
           else
-            # Fallback for tag pushes / manual runs
             git fetch --tags --force --prune
             VERSION="$(git describe --tags --abbrev=0 2>/dev/null || echo 'v0.0.0')"
             LABEL="release"
           fi
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "label=$LABEL"   >> $GITHUB_OUTPUT
+          echo "label=$LABEL"     >> $GITHUB_OUTPUT
 
-      - name: Build SVG badge
+      - name: Generate SVG badge
         shell: bash
         run: |
           set -e
@@ -53,11 +53,11 @@ jobs:
           LABEL='${{ steps.meta.outputs.label }}'
           VERSION='${{ steps.meta.outputs.version }}'
 
-          # Simple width calculation (keeps everything repo-local)
+          # Calculate widths for a Shields-like look
           label_chars=${#LABEL}
           vers_chars=${#VERSION}
-          label_w=$(( label_chars * 6 + 20 ))   # ~6px per char + padding
-          right_w=$(( vers_chars * 8 + 20 ))    # ~8px per char + padding
+          label_w=$(( label_chars * 6 + 20 ))   # ~6px/char + padding
+          right_w=$(( vers_chars * 8 + 20 ))    # ~8px/char + padding
           [ $label_w -lt 60 ] && label_w=60
           [ $right_w -lt 80 ] && right_w=80
           total_w=$(( label_w + right_w ))
@@ -83,8 +83,18 @@ jobs:
           </svg>
           EOF
 
-      - name: Commit badge
-        uses: stefanzweifel/git-auto-commit-action@v5
+      # Create/refresh a PR with just the badge change
+      - name: Open PR with badge update
+        uses: peter-evans/create-pull-request@v6
         with:
-          commit_message: "chore: update release badge -> ${{ steps.meta.outputs.version }}"
-          file_pattern: Documentation/Images/release.svg
+          commit-message: "chore: update release badge -> ${{ steps.meta.outputs.version }}"
+          title: "chore: update release badge -> ${{ steps.meta.outputs.version }}"
+          body: |
+            Automated update of `Documentation/Images/release.svg`
+            - **Label:** `${{ steps.meta.outputs.label }}`
+            - **Version:** `${{ steps.meta.outputs.version }}`
+          branch: "bot/release-badge/${{ steps.meta.outputs.version }}"
+          base: ${{ github.event.repository.default_branch }}
+          labels: automation, docs
+          add-paths: |
+            Documentation/Images/release.svg
