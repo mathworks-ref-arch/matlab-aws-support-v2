@@ -36,8 +36,11 @@ The [documentation portal](https://mathworks-ref-arch.github.io/matlab-aws-suppo
    cd Software/Java
    mvn clean package
    ```
-3. In MATLAB, run `startup.m` from `Software/MATLAB` to add the interface to your path.
-4. Follow the detailed [Installation guide](https://mathworks-ref-arch.github.io/matlab-aws-support-v2/Overview.html#installation) for advanced scenarios (proxy settings, custom SDK bundles, etc.).
+3. Ensure the AWS credentials are valid before running the startup. Check [Authentication](https://mathworks-ref-arch.github.io/matlab-aws-support-v2/Authentication.html) for different ways.
+4. Open MATLAB, run `startup.m` from `Software/MATLAB` to add the interface to your path.
+5. Check the detailed [Installation guide](https://mathworks-ref-arch.github.io/matlab-aws-support-v2/Installation.html) for advanced scenarios (proxy settings, custom SDK bundles, etc.).
+
+> **Note:** If MATLAB does not recognize the MATLAB AWS classes and the startup script prints "False" for any of the AWS Service, or if the credentials are not reflected in MATLAB (Errors: The provided token has expired.), MATLAB has to be restarted and the startup scripts have to be run again.
 
 ## Documentation
 
@@ -45,19 +48,13 @@ Full usage instructions, service-specific walkthroughs, and the MATLAB AWS API r
 
 ## Authentication
 
-You must supply AWS credentials before calling any service. The package supports:
-
-1. **Default Credential Provider Chain** – honors AWS environment variables, shared config files, Java system properties, ECS/EC2 metadata (IMDS), and web identity/OIDC sources.
-2. **Explicit Credential Providers** – create providers via `aws.auth.CredentialProvider` for named profiles, static or session credentials, web-identity tokens, or custom JSON secrets.
-
-See [Documentation/Authentication.md](Documentation/Authentication.md) for step-by-step guidance.
+You must supply AWS credentials before calling any service. The package supports a different ways of credential provider.
+See [Documentation/Authentication.md](https://mathworks-ref-arch.github.io/matlab-aws-support-v2/Authentication.html) for different approaches to obtain the credentials from provider.
 
 ## Getting Started
 
 ```matlab
 % Configure MATLAB with AWS clients and dependencies
-run(fullfile("Software","MATLAB","startup.m"));
-
 % Example: List buckets and read a secret
 s3 = aws.s3.Client();
 resp = s3.listBuckets();
