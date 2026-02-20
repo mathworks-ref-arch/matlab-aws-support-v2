@@ -41,7 +41,7 @@ The [documentation portal](https://mathworks-ref-arch.github.io/matlab-aws-suppo
 
 ## Documentation
 
-Full usage instructions, service-specific walkthroughs, and the AWSSDK API reference are published at the [MATLAB AWS documentation site](https://mathworks-ref-arch.github.io/matlab-aws-support-v2).
+Full usage instructions, service-specific walkthroughs, and the MATLAB AWS API reference are published at the [MATLAB AWS documentation site](https://mathworks-ref-arch.github.io/matlab-aws-support-v2).
 
 ## Authentication
 
