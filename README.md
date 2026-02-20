@@ -2,8 +2,8 @@
 [![tests](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/testBadge.svg)](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/test-reports/test-results.html)
 [![pipeline status](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/badges/main/pipeline.svg)](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/commits/main)
 [![matlab-aws-support-v2 Version](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/badges/release.svg)](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/releases/permalink/latest)
-[![License](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/license-badge.svg)](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/blob/main/LICENSE.MD)
-[![Documentation](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/docs-badge.svg)](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/docs/index.html)
+![License](Documentation/Images/license-badge.svg)
+![Docs](Documentation/Images/docs-badge.svg)
 
 # MATLAB Interface *for Amazon Web Services*
 
