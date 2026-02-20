@@ -2,8 +2,8 @@
 [![tests](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/testBadge.svg)](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/test-reports/test-results.html)
 [![pipeline status](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/badges/main/pipeline.svg)](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/commits/main)
 [![matlab-aws-support-v2 Version](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/badges/release.svg)](https://insidelabs-git.mathworks.com/EI-DTST/Cloud/AWS/matlab-aws-support-v2/-/releases/permalink/latest)
-![License](Documentation/Images/license-badge.svg)
-![Docs](Documentation/Images/docs-badge.svg)
+[![License](Documentation/Images/license-badge.svg)](https://github.com/mathworks-ref-arch/matlab-aws-support-v2/blob/main/LICENSE.MD)
+[![Docs](Documentation/Images/docs-badge.svg)](https://mathworks-ref-arch.github.io/matlab-aws-support-v2)
 
 # MATLAB Interface *for Amazon Web Services*
 
@@ -18,7 +18,7 @@
 - Amazon DynamoDB, ECS, Lambda, Redshift Data, STS, and more
 - Amazon Bedrock Runtime for generative AI workloads
 
-The [documentation portal](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/docs/index.html) lists every supported service and data model.
+The [documentation portal](https://mathworks-ref-arch.github.io/matlab-aws-support-v2) lists every supported service and data model.
 
 > **Tip:** MATLAB already includes built-in remote data helpers (for example, [`dir`](https://www.mathworks.com/help/matlab/ref/dir.html) and the [remote data workflow guide](https://www.mathworks.com/help/matlab/import_export/work-with-remote-data.html)). Use those higher-level features whenever they cover your scenario before dropping to the low-level SDK wrappers in this project.
 
@@ -44,7 +44,7 @@ The [documentation portal](https://ei-dtst.insidelabspages.mathworks.com/Cloud/A
 
 ## Documentation
 
-Full usage instructions, service-specific walkthroughs, and the AWSSDK API reference are published at the [MATLAB AWS documentation site](https://ei-dtst.insidelabspages.mathworks.com/Cloud/AWS/matlab-aws-support-v2/docs/index.html).
+Full usage instructions, service-specific walkthroughs, and the AWSSDK API reference are published at the [MATLAB AWS documentation site](https://mathworks-ref-arch.github.io/matlab-aws-support-v2).
 
 ## Authentication
 
