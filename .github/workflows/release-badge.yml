@@ -1,0 +1,90 @@
+name: Release Badge
+
+on:
+  release:
+    types: [published, edited, prereleased]
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  make-badge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out default branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Determine version and label
+        id: meta
+        shell: bash
+        run: |
+          # Prefer the tag from a Release event
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            if [ "${{ github.event.release.prerelease }}" = "true" ]; then
+              LABEL="prerelease"
+            else
+              LABEL="release"
+            fi
+          else
+            # Fallback for tag pushes / manual runs
+            git fetch --tags --force --prune
+            VERSION="$(git describe --tags --abbrev=0 2>/dev/null || echo 'v0.0.0')"
+            LABEL="release"
+          fi
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "label=$LABEL"   >> $GITHUB_OUTPUT
+
+      - name: Build SVG badge
+        shell: bash
+        run: |
+          set -e
+          mkdir -p Documentation/Images
+
+          LABEL='${{ steps.meta.outputs.label }}'
+          VERSION='${{ steps.meta.outputs.version }}'
+
+          # Simple width calculation (keeps everything repo-local)
+          label_chars=${#LABEL}
+          vers_chars=${#VERSION}
+          label_w=$(( label_chars * 6 + 20 ))   # ~6px per char + padding
+          right_w=$(( vers_chars * 8 + 20 ))    # ~8px per char + padding
+          [ $label_w -lt 60 ] && label_w=60
+          [ $right_w -lt 80 ] && right_w=80
+          total_w=$(( label_w + right_w ))
+          lx=$(( label_w / 2 ))
+          rx=$(( label_w + right_w / 2 ))
+
+          cat > Documentation/Images/release.svg <<EOF
+          <svg xmlns="http://www.w3.org/2000/svg" width="${total_w}" height="20" role="img" aria-label="${LABEL}: ${VERSION}">
+            <linearGradient id="s" x2="0" y2="100%">
+              <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+              <stop offset="1" stop-opacity=".1"/>
+            </linearGradient>
+            <mask id="m"><rect width="${total_w}" height="20" rx="3" fill="#fff"/></mask>
+            <g mask="url(#m)">
+              <rect width="${label_w}" height="20" fill="#555"/>
+              <rect x="${label_w}" width="${right_w}" height="20" fill="#2ea44f"/>
+              <rect width="${total_w}" height="20" fill="url(#s)"/>
+            </g>
+            <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">
+              <text x="${lx}" y="14">${LABEL}</text>
+              <text x="${rx}" y="14">${VERSION}</text>
+            </g>
+          </svg>
+          EOF
+
+      - name: Commit badge
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update release badge -> ${{ steps.meta.outputs.version }}"
+          file_pattern: Documentation/Images/release.svg
