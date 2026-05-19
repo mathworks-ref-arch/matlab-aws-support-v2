@@ -42,6 +42,7 @@ classdef Client < aws.core.BaseClient
             end
 
             builder = obj.applyHttpClientBuilder(builder, isCrt=obj.isCrt);
+            builder = obj.overrideEndpoint(builder, endpoint=obj.endpointOverride);
 
             obj.Handle = builder.build();
             if ~isempty(obj.Handle)

@@ -1,5 +1,18 @@
 # MATLAB Interface *for Amazon Web Services* - Release Notes
 
+## 2.1.6 (8th May, 2026)
+
+*   Made `temperature` and `topP` optional in `bedrock.converse()`. Neither is sent
+    by default, fixing compatibility with models (e.g., Claude Haiku 4.5) that reject
+    requests containing both parameters. Callers should pass only one.
+*   Added `systemPrompt` parameter to `bedrock.converse()` for passing system-level
+    instructions via the Converse API system field.
+*   Added unit tests for optional `topP`, explicit `topP`, and `systemPrompt`.
+
+## 2.1.5 (10th Feb, 2026)
+
+*   Added an "endpointOverride" option to the AWS S3 Client & TM to override URL.
+
 ## 2.1.4 (26th Jan, 2026)
 
 *   Updated Bedrock Runtime image model unit test cases.

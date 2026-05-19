@@ -23,6 +23,7 @@ classdef TransferManager < aws.Object
     properties(Hidden)
         InitializeStatus = false;
         CleanupObj;
+        endpointOverride (1,1) string = "";
     end
 
     methods
@@ -46,16 +47,19 @@ classdef TransferManager < aws.Object
                 addParameter(parser, 'credentialsprovider', []);
                 addParameter(parser, 'region', []);
                 addParameter(parser, 'proxy', []);
+                addParameter(parser, 'endpointOverride', "");
                 parse(parser, varargin{:});
 
                 credentialsProvider = parser.Results.credentialsprovider;
                 region = parser.Results.region;
+                endpointOverride = parser.Results.endpointOverride;
                 if isempty(credentialsProvider)
                     [credentialsProvider, ~] = aws.auth.CredentialProvider.getDefaultCredentialProvider();
                 end
                 if isempty(region)
                     [~, region] = aws.auth.CredentialProvider.getDefaultCredentialProvider();
                 end
+                obj.endpointOverride = string(endpointOverride);
 
                 obj.InitializeStatus = obj.initialize(region, credentialsProvider);
 
@@ -79,8 +83,6 @@ classdef TransferManager < aws.Object
             import software.amazon.awssdk.regions.GeneratedServiceMetadataProvider;
 
             initStat = false;
-
-            useMATLABProxyPrefs(obj, 'https://s3.us-east-1.amazonaws.com');
 
             % Build S3AsyncClient first
             asyncBuilder = S3AsyncClient.crtBuilder();
@@ -106,6 +108,9 @@ classdef TransferManager < aws.Object
             httpClientBuilder = configProxyHttpClient(obj);
             if ~isempty(httpClientBuilder)
                 asyncBuilder.httpClientBuilder(httpClientBuilder);
+            end
+            if obj.endpointOverride ~= ""
+                asyncBuilder.endpointOverride(java.net.URI.create(obj.endpointOverride));
             end
 
             s3AsyncClient = asyncBuilder.build();

@@ -1,0 +1,61 @@
+name: Generate Documentation and Publish to Pages
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v**'
+
+jobs:
+  pages:
+    name: Build and Deploy Documentation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Sphinx Python Dependencies
+        run: pip install -r requirements.txt
+        working-directory: Documentation
+
+      - name: Build Versioned Documentation
+        run: sphinx-multiversion . _build/html
+        working-directory: Documentation
+
+      - name: Create redirect to latest version
+        run: |
+          LATEST_TAG=$(git tag -l 'v*' --sort=-version:refname | head -n1)
+          if [ -z "$LATEST_TAG" ]; then
+            LATEST_TAG="main"
+          fi
+          cat > Documentation/_build/html/index.html <<EOF
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta http-equiv="refresh" content="0; url=./${LATEST_TAG}/" />
+            </head>
+            <body>
+              <p>Redirecting to <a href="./${LATEST_TAG}/">latest documentation</a>...</p>
+            </body>
+          </html>
+          EOF
+
+      - name: Add .nojekyll file
+        run: touch Documentation/_build/html/.nojekyll
+
+      - name: Deploy Documentation to Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./Documentation/_build/html
+          publish_branch: gh-pages

@@ -1,6 +1,3 @@
-[![Latest release](Documentation/Images/release.svg)](https://github.com/mathworks-ref-arch/matlab-aws-support-v2/releases/latest)
-[![License](Documentation/Images/license-badge.svg)](https://github.com/mathworks-ref-arch/matlab-aws-support-v2/blob/main/LICENSE.MD)
-[![Docs](Documentation/Images/docs-badge.svg)](https://mathworks-ref-arch.github.io/matlab-aws-support-v2)
 
 # MATLAB Interface *for Amazon Web Services*
 
@@ -58,7 +55,7 @@ See [Documentation/Authentication.md](https://mathworks-ref-arch.github.io/matla
 % Example: List buckets and read a secret
 s3 = aws.s3.Client();
 resp = s3.listBuckets();
-disp(string({resp.buckets.name}'));
+disp({resp.buckets.name}');
 
 sm = aws.secretsmanager.Client();
 secret = sm.getSecretValue(secretId="prod/app/api");

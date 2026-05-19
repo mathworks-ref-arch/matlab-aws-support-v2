@@ -113,12 +113,15 @@ classdef TestS3CrtClient < matlab.unittest.TestCase
             testCase.verifyEqual(listObjectResponse.name, testCase.bucketName);
 
             % Copy object
-            copyObjectResponse = testCase.s3Crt.copyObject(sourceBucket=testCase.bucketName, sourceKey="hello2.txt",destinationBucket="matlab-s3test-bucket-20250826224322515",destinationKey="hello2Copy.txt");
+            copyObjectResponse = testCase.s3Crt.copyObject(sourceBucket=testCase.bucketName, sourceKey="hello2.txt",destinationBucket=testCase.bucketName,destinationKey="hello2Copy.txt");
             testCase.verifyNotEmpty(copyObjectResponse.eTag,"Not copied");
-
 
             % Delete Object
             deleteObjectResponse = testCase.s3Crt.deleteObject(bucket=testCase.bucketName,key="hello2.txt");
+            testCase.verifyNotEmpty(deleteObjectResponse);
+
+            % Delete Copied Object
+            deleteObjectResponse = testCase.s3Crt.deleteObject(bucket=testCase.bucketName,key="hello2Copy.txt");
             testCase.verifyNotEmpty(deleteObjectResponse);
 
         end

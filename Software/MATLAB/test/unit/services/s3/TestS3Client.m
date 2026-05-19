@@ -16,6 +16,7 @@ classdef TestS3Client < matlab.unittest.TestCase
         s3
         isOnGitlab
         bucketName
+        endpointOverride (1,1) string = ""
     end
 
     methods(TestClassSetup)
@@ -30,17 +31,27 @@ classdef TestS3Client < matlab.unittest.TestCase
             testCase.isOnGitlab = ~isempty(host);
         end
 
+        function loadEndpointOverride(testCase)
+            eo = strtrim(getenv('S3_ENDPOINT_OVERRIDE'));
+            if ~isempty(eo)
+                testCase.endpointOverride = string(eo);
+            else
+                testCase.endpointOverride = "https://s3.us-east-1.amazonaws.com";
+            end
+        end
+
         function initializeS3Client(testCase)
             region = 'us-east-1';
             if testCase.isOnGitlab
                 credentials = loadConfigurationSettings('credentials.json');
-                credentialProvider = aws.auth.CredentialProvider.getSessionCredentialProvider(...
+                cp = aws.auth.CredentialProvider.getSessionCredentialProvider( ...
                     credentials.aws_access_key_id, credentials.aws_secret_access_key, ...
                     credentials.aws_session_token);
-                testCase.s3 = aws.s3.Client('credentialsprovider', credentialProvider, ...
-                    'region', region);
+                testCase.s3 = aws.s3.Client('credentialsprovider', cp, ...
+                    'region', region, 'endpointOverride', testCase.endpointOverride);
             else
-                testCase.s3 = aws.s3.Client('region', region);
+                testCase.s3 = aws.s3.Client('region', region, ...
+                    'endpointOverride', testCase.endpointOverride);
             end
         end
     end
@@ -119,11 +130,15 @@ classdef TestS3Client < matlab.unittest.TestCase
             testCase.verifyEqual(listObjectResponse.name, testCase.bucketName);
 
             % Copy object
-            copyObjectResponse = testCase.s3.copyObject(sourceBucket=testCase.bucketName, sourceKey="hello2.txt",destinationBucket="matlab-s3test-bucket-20250826224322515",destinationKey="hello2Copy.txt");
+            copyObjectResponse = testCase.s3.copyObject(sourceBucket=testCase.bucketName, sourceKey="hello2.txt",destinationBucket=testCase.bucketName,destinationKey="hello2Copy.txt");
             testCase.verifyNotEmpty(copyObjectResponse.eTag,"Not copied");
 
             % Delete Object
             deleteObjectResponse = testCase.s3.deleteObject(bucket=testCase.bucketName,key="hello2.txt");
+            testCase.verifyNotEmpty(deleteObjectResponse);
+
+            % Delete Copied Object
+            deleteObjectResponse = testCase.s3.deleteObject(bucket=testCase.bucketName,key="hello2Copy.txt");
             testCase.verifyNotEmpty(deleteObjectResponse);
 
         end

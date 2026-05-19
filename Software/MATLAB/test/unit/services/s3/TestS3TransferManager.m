@@ -15,6 +15,7 @@ classdef TestS3TransferManager < matlab.unittest.TestCase
         isOnGitlab logical
         bucketName string
         tmpRoot string
+        endpointOverride (1,1) string = ""
     end
 
     properties (Constant)
@@ -34,6 +35,14 @@ classdef TestS3TransferManager < matlab.unittest.TestCase
             testCase.isOnGitlab = ~isempty(host);
             write(testCase.logObj, 'verbose', "CI detection (GitLab): " + string(testCase.isOnGitlab));
         end
+        function loadEndpointOverride(testCase)
+            eo = strtrim(getenv('S3_ENDPOINT_OVERRIDE'));
+            if ~isempty(eo)
+                testCase.endpointOverride = string(eo);
+            else
+                testCase.endpointOverride = "https://s3.us-east-1.amazonaws.com";
+            end
+        end
 
         function initializeClients(testCase)
             % Initialize S3 client and TransferManager.
@@ -45,10 +54,12 @@ classdef TestS3TransferManager < matlab.unittest.TestCase
                     creds.aws_access_key_id, creds.aws_secret_access_key, ...
                     creds.aws_session_token);
                 testCase.s3 = aws.s3.Client('credentialsprovider', cp, 'region', region, 'isCrt', true);
-                testCase.tm = aws.s3.transfer.TransferManager('credentialsprovider', cp, 'region', region);
+                testCase.tm = aws.s3.transfer.TransferManager('credentialsprovider', cp, ...
+                    'region', region, 'endpointOverride', testCase.endpointOverride);
             else
                 testCase.s3 = aws.s3.Client('region', region, 'isCrt', true);
-                testCase.tm = aws.s3.transfer.TransferManager('region', region);
+                testCase.tm = aws.s3.transfer.TransferManager('region', region, ...
+                    'endpointOverride', testCase.endpointOverride);
             end
 
             % Sanity: ensure TM is initialized

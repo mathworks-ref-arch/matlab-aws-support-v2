@@ -795,14 +795,14 @@ CONVERSERESPONSE is the response sent from Bedrock Converse
 Superclass: aws.Object
 
 ```text
-INVOKEMODELREQUEST is the request class to invoke a bedrock runtime
+INVOKEMODELRESPONSE is the response class to invoke a bedrock runtime
  model.
 ```
 
 ##### aws.bedrock.runtime.model.InvokeModelResponse.InvokeModelResponse
 
 ```text
-INVOKEMODELREQUEST is the request class to invoke a bedrock runtime
+INVOKEMODELRESPONSE is the response class to invoke a bedrock runtime
  model.
 ```
 
@@ -884,8 +884,9 @@ Send a sequence of messages to a chat-capable foundation model.
 | `modelId` | string | Required. Model identifier. |
 | `messages` | aws.bedrock.runtime.model.Message vector | Required. Conversation turns (user/assistant). |
 | `maxTokens` | int32 | Optional. Max tokens in the response (default 512). |
-| `temperature` | single | Optional. Sampling temperature in [0,1]. |
-| `topP` | single | Optional. Nucleus sampling parameter in [0,1]. |
+| `temperature` | single | Optional. Sampling temperature in [0,1]. Not sent by default. Some models reject requests that include both `temperature` and `topP`; pass only one. |
+| `topP` | single | Optional. Nucleus sampling parameter in [0,1]. Not sent by default. |
+| `systemPrompt` | string | Optional. System prompt text passed via the Converse API system field. |
 
 | Returns | Type | Description |
 | --- | --- | --- |
@@ -3903,7 +3904,7 @@ RECEIVEMESSAGERESPONSE Response object for receiving messages from an SQS queue.
   This class encapsulates the response from the ReceiveMessage operation
   in Amazon SQS, providing access to the messages received.
   Example:
-     receiveMessageResponse = sqs.receiveMessage(receiveMessageRequest);
+     receiveMessageResponse = sqs.receiveMessage(queueUrl='queueUrl');
      messagesReceived = receiveMessageResponse.messages
 ```
 
@@ -3915,7 +3916,7 @@ RECEIVEMESSAGERESPONSE Response object for receiving messages from an SQS queue.
   This class encapsulates the response from the ReceiveMessage operation
   in Amazon SQS, providing access to the messages received.
   Example:
-     receiveMessageResponse = sqs.receiveMessage(receiveMessageRequest);
+     receiveMessageResponse = sqs.receiveMessage(queueUrl='queueUrl');
      messagesReceived = receiveMessageResponse.messages
 ```
 

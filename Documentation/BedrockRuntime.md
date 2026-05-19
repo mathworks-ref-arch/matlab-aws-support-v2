@@ -27,6 +27,10 @@ response = bedrock.invokeModel( ...
 disp(response.outputText);
 ```
 
+```{note}
+Some models provided in the example might have reached end of life. Use the updated model_id in case of errors like "This model version has reached the end of its life".
+```
+
 #### 🔸 Invoke a Model (Image Generation)
 ```matlab
 spec = struct(text="Neon skyline at dusk", seed=42, style="photographic");
@@ -83,9 +87,12 @@ response = bedrock.invokeModel(modelId = "<model-id>", body = <string>);
 #### 🔸 `converse`
 ```matlab
 response = bedrock.converse( ...
-    modelId   = "<model-id>", ...
-    messages  = <Message | Message[]>, ...
-    maxTokens = <int>);  % optional
+    modelId      = "<model-id>", ...
+    messages     = <Message | Message[]>, ...
+    maxTokens    = <int>, ...          % optional (default 512)
+    temperature  = <single>, ...       % optional, not sent by default
+    topP         = <single>, ...       % optional, not sent by default
+    systemPrompt = "<system text>");   % optional
 ```
 *   Returns: `aws.bedrock.runtime.model.ConverseResponse`
     *   `message` (assistant message), `stopReason`, `usage`

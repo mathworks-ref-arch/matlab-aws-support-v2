@@ -9,6 +9,7 @@ classdef (Abstract) BaseClient < aws.Object
         CleanupObj;
         isCrt (1,1) logical = false;
         serviceId (1,1) string = "";
+        endpointOverride (1,1) string = "";
     end
 
     methods (Abstract, Access=protected)
@@ -34,11 +35,13 @@ classdef (Abstract) BaseClient < aws.Object
             parser = inputParser();
             addParameter(parser, 'credentialsprovider', []);
             addParameter(parser, 'region', []);
+            addParameter(parser, 'endpointOverride', "");
             addParameter(parser, 'isCrt', false, @(x) islogical(x) || (isnumeric(x) && isscalar(x)));
             parse(parser, varargin{:});
 
             credentialsProvider = parser.Results.credentialsprovider;
             region = parser.Results.region;
+            endpointOverride = parser.Results.endpointOverride;
             obj.isCrt = logical(parser.Results.isCrt);
 
             % Sometimes Credential Provider is passed in which case do not
@@ -52,8 +55,10 @@ classdef (Abstract) BaseClient < aws.Object
                 [~, region] = aws.auth.CredentialProvider.getDefaultCredentialProvider();
             end
 
-            % Store service identifier
+            % Store service identifier and endpoint override
             obj.serviceId = string(serviceId);
+            obj.endpointOverride = string(endpointOverride);
+
 
             regionObj = obj.validateRegion(region, serviceId);
 
@@ -103,6 +108,17 @@ classdef (Abstract) BaseClient < aws.Object
                 if ~isempty(httpClientBuilder)
                     builder.httpClientBuilder(httpClientBuilder);
                 end
+            end
+        end
+
+        function builder = overrideEndpoint(~, builder, options)
+            arguments
+                ~
+                builder
+                options.endpoint string = ""
+            end            
+            if options.endpoint ~= ""
+                builder.endpointOverride(java.net.URI.create(options.endpoint));            
             end
         end
     end

@@ -46,7 +46,32 @@ classdef TestBedrockRuntimeClient < matlab.unittest.TestCase
             write(testCase.logObj,'debug','Testing testConstructor');
             testCase.verifyClass(testCase.bedrockRuntime,'aws.bedrock.runtime.Client');
         end
+        function testInvalidConversationRole(testCase)
+            write(testCase.logObj,'debug','Testing testConverse');
+            textPrompt = "What is your name?";
+            createInvalidMessage = @() aws.bedrock.runtime.model.Message('text', textPrompt, ...
+                'role', "invalid_role");
 
+            write(testCase.logObj,'debug',"______________PROMPT_______________");
+            write(testCase.logObj,'debug',textPrompt);
+            testCase.verifyError(createInvalidMessage, "Amazon:BedrockRuntime:InvalidRole");
+
+        end
+
+        function testInvalidImage(testCase)
+            write(testCase.logObj,'debug','Testing testConverse');
+            textPrompt = "What is your name?";
+            createInvalidMessage = @() aws.bedrock.runtime.model.Message('imageData', textPrompt, ...
+                'role', "invalid_role");
+
+            write(testCase.logObj,'debug',"______________PROMPT_______________");
+            write(testCase.logObj,'debug',textPrompt);
+            testCase.verifyError(createInvalidMessage, "Amazon:BedrockRuntime:InvalidImage");
+
+        end
+
+    end
+    methods(Test, TestTags = {'Unit'})
         % Test the invoke method. This will call the bedrockruntime service
         % once with a test prompt.
         function testInvokeModel(testCase)
@@ -72,7 +97,7 @@ classdef TestBedrockRuntimeClient < matlab.unittest.TestCase
             write(testCase.logObj,'debug','Testing testConverse');
             textPrompt = "What is your name?";
             message1 = aws.bedrock.runtime.model.Message(text = textPrompt);
-            response = testCase.bedrockRuntime.converse(modelId="anthropic.claude-3-5-sonnet-20240620-v1:0", ...
+            response = testCase.bedrockRuntime.converse(modelId="amazon.nova-lite-v1:0", ...
                 messages=message1);
 
             write(testCase.logObj,'debug',"______________PROMPT_______________");
@@ -82,30 +107,6 @@ classdef TestBedrockRuntimeClient < matlab.unittest.TestCase
             write(testCase.logObj,'debug',"___________________________________");
 
             testCase.verifyEqual(lower(response.message.role), "assistant");
-
-        end
-
-        function testInvalidConversationRole(testCase)
-            write(testCase.logObj,'debug','Testing testConverse');
-            textPrompt = "What is your name?";
-            createInvalidMessage = @() aws.bedrock.runtime.model.Message('text', textPrompt, ...
-                'role', "invalid_role");
-
-            write(testCase.logObj,'debug',"______________PROMPT_______________");
-            write(testCase.logObj,'debug',textPrompt);
-            testCase.verifyError(createInvalidMessage, "Amazon:BedrockRuntime:InvalidRole");
-
-        end
-
-        function testInvalidImage(testCase)
-            write(testCase.logObj,'debug','Testing testConverse');
-            textPrompt = "What is your name?";
-            createInvalidMessage = @() aws.bedrock.runtime.model.Message('imageData', textPrompt, ...
-                'role', "invalid_role");
-
-            write(testCase.logObj,'debug',"______________PROMPT_______________");
-            write(testCase.logObj,'debug',textPrompt);
-            testCase.verifyError(createInvalidMessage, "Amazon:BedrockRuntime:InvalidImage");
 
         end
 
@@ -124,7 +125,7 @@ classdef TestBedrockRuntimeClient < matlab.unittest.TestCase
             fullConversationMessages(end+1) = message1;
 
             % First invocation
-            response1 = testCase.bedrockRuntime.converse(modelId="anthropic.claude-3-5-sonnet-20240620-v1:0", ...
+            response1 = testCase.bedrockRuntime.converse(modelId="amazon.nova-lite-v1:0", ...
                 messages=fullConversationMessages);
 
             write(testCase.logObj,'debug',"______________PROMPT_______________");
@@ -144,7 +145,7 @@ classdef TestBedrockRuntimeClient < matlab.unittest.TestCase
 
             fullConversationMessages(end+1) = message2;
 
-            response2 = testCase.bedrockRuntime.converse(modelId="anthropic.claude-3-5-sonnet-20240620-v1:0", ...
+            response2 = testCase.bedrockRuntime.converse(modelId="amazon.nova-lite-v1:0", ...
                 messages = fullConversationMessages, maxTokens=600);
 
             write(testCase.logObj,'debug',"______________PROMPT_______________");
@@ -174,7 +175,7 @@ classdef TestBedrockRuntimeClient < matlab.unittest.TestCase
             fullConversationMessages(end+1) = message1;
 
             % First invocation
-            response1 = testCase.bedrockRuntime.converse(modelId="anthropic.claude-3-5-sonnet-20240620-v1:0", ...
+            response1 = testCase.bedrockRuntime.converse(modelId="amazon.nova-lite-v1:0", ...
                 messages=fullConversationMessages);
 
             write(testCase.logObj,'debug',"______________IMAGE PROMPT_______________");
@@ -193,7 +194,7 @@ classdef TestBedrockRuntimeClient < matlab.unittest.TestCase
             message2 = aws.bedrock.runtime.model.Message(text = secondPrompt);
             fullConversationMessages(end+1) = message2;
 
-            response2 = testCase.bedrockRuntime.converse(modelId="anthropic.claude-3-5-sonnet-20240620-v1:0", ...
+            response2 = testCase.bedrockRuntime.converse(modelId="amazon.nova-lite-v1:0", ...
                 messages=fullConversationMessages);
 
             write(testCase.logObj,'debug',"______________PROMPT_______________");
@@ -209,6 +210,46 @@ classdef TestBedrockRuntimeClient < matlab.unittest.TestCase
 
         end
         % testStatefulConversation
+
+        function testConverseWithoutTopP(testCase)
+            % Verify converse succeeds when topP is omitted (default).
+            write(testCase.logObj,'debug','Testing testConverseWithoutTopP');
+            textPrompt = "Reply with one word: hello";
+            message1 = aws.bedrock.runtime.model.Message(text = textPrompt);
+            response = testCase.bedrockRuntime.converse( ...
+                modelId="amazon.nova-lite-v1:0", ...
+                messages=message1, temperature=single(0.5));
+
+            testCase.verifyEqual(lower(response.message.role), "assistant");
+            testCase.verifyNotEmpty(response.message.text);
+        end
+
+        function testConverseWithExplicitTopP(testCase)
+            % Verify converse succeeds when topP is explicitly provided.
+            write(testCase.logObj,'debug','Testing testConverseWithExplicitTopP');
+            textPrompt = "Reply with one word: hello";
+            message1 = aws.bedrock.runtime.model.Message(text = textPrompt);
+            response = testCase.bedrockRuntime.converse( ...
+                modelId="amazon.nova-lite-v1:0", ...
+                messages=message1, topP=single(0.9));
+
+            testCase.verifyEqual(lower(response.message.role), "assistant");
+            testCase.verifyNotEmpty(response.message.text);
+        end
+
+        function testConverseWithSystemPrompt(testCase)
+            % Verify converse passes system prompt correctly.
+            write(testCase.logObj,'debug','Testing testConverseWithSystemPrompt');
+            textPrompt = "What are you?";
+            message1 = aws.bedrock.runtime.model.Message(text = textPrompt);
+            response = testCase.bedrockRuntime.converse( ...
+                modelId="amazon.nova-lite-v1:0", ...
+                messages=message1, ...
+                systemPrompt="You are a helpful assistant. Always respond in exactly one sentence.");
+
+            testCase.verifyEqual(lower(response.message.role), "assistant");
+            testCase.verifyNotEmpty(response.message.text);
+        end
 
     end % Test
 
