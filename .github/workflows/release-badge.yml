@@ -1,0 +1,99 @@
+name: Release Badge
+
+on:
+  release:
+    types: [published, edited, prereleased]
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  make-badge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out main (read-only; PR will target this)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+
+      - name: Determine version and label
+        id: meta
+        shell: bash
+        run: |
+          set -e
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            if [ "${{ github.event.release.prerelease }}" = "true" ]; then
+              LABEL="prerelease"
+            else
+              LABEL="release"
+            fi
+          else
+            git fetch --tags --force --prune
+            VERSION="$(git describe --tags --abbrev=0 2>/dev/null || echo 'v0.0.0')"
+            LABEL="release"
+          fi
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "label=$LABEL"     >> $GITHUB_OUTPUT
+
+      - name: Generate SVG badge
+        shell: bash
+        run: |
+          set -e
+          mkdir -p Documentation/Images
+
+          LABEL='${{ steps.meta.outputs.label }}'
+          VERSION='${{ steps.meta.outputs.version }}'
+
+          # Calculate widths for a Shields-like look
+          label_chars=${#LABEL}
+          vers_chars=${#VERSION}
+          label_w=$(( label_chars * 6 + 20 ))
+          right_w=$(( vers_chars * 8 + 20 ))
+          [ $label_w -lt 60 ] && label_w=60
+          [ $right_w -lt 80 ] && right_w=80
+          total_w=$(( label_w + right_w ))
+          lx=$(( label_w / 2 ))
+          rx=$(( label_w + right_w / 2 ))
+
+          cat > Documentation/Images/release.svg <<EOF
+          <svg xmlns="http://www.w3.org/2000/svg" width="${total_w}" height="20" role="img" aria-label="${LABEL}: ${VERSION}">
+            <linearGradient id="s" x2="0" y2="100%">
+              <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+              <stop offset="1" stop-opacity=".1"/>
+            </linearGradient>
+            <mask id="m"><rect width="${total_w}" height="20" rx="3" fill="#fff"/></mask>
+            <g mask="url(#m)">
+              <rect width="${label_w}" height="20" fill="#555"/>
+              <rect x="${label_w}" width="${right_w}" height="20" fill="#2ea44f"/>
+              <rect width="${total_w}" height="20" fill="url(#s)"/>
+            </g>
+            <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11">
+              <text x="${lx}" y="14">${LABEL}</text>
+              <text x="${rx}" y="14">${VERSION}</text>
+            </g>
+          </svg>
+          EOF
+
+      - name: Open PR with badge update
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: update release badge -> ${{ steps.meta.outputs.version }}"
+          title: "chore: update release badge -> ${{ steps.meta.outputs.version }}"
+          body: |
+            Automated update of `Documentation/Images/release.svg`
+            - **Label:** `${{ steps.meta.outputs.label }}`
+            - **Version:** `${{ steps.meta.outputs.version }}`
+          branch: "bot/release-badge/${{ steps.meta.outputs.version }}"
+          base: ${{ github.event.repository.default_branch }}
+          labels: automation, docs
+          add-paths: |
+            Documentation/Images/release.svg
